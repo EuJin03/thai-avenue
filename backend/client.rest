@@ -1,0 +1,9 @@
+GET http://localhost:5000/api/products
+
+###
+
+POST http://localhost:5000/api/client
+Content-Type: application/json
+["body" {
+  "id": "600c40337c004d4c8456319f"
+}]
