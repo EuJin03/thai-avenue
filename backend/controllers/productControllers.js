@@ -10,20 +10,6 @@ const getProducts = asyncHandler(async (req, res) => {
   res.json(products);
 });
 
-// @desc Fetch single product
-// @route GET /api/products/:id
-// @access Public route
-const getProductById = asyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id);
-
-  if (product) {
-    res.status(201).json(product);
-  } else {
-    res.status(404);
-    throw new Error("Product not found");
-  }
-});
-
 // @desc Fetch product of a category
 // @route GET /api/products/:category
 // @access Public route
@@ -31,7 +17,17 @@ const getProductByCategory = asyncHandler(async (req, res) => {
   const products = await Product.find({ category: req.params.category });
 
   if (!products) throw new Error("Something went wrong");
-  res.status(201).json(products);
+  res.json(products);
+});
+
+// @desc Fetch single product
+// @route GET /api/products/:id
+// @access Public route
+const getProductById = asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) throw new Error("Product not Found");
+  res.json(product);
 });
 
 // desc Create a new product

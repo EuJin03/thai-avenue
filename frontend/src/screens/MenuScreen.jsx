@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Image, Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import CategoryList from "../components/CategoryList";
 import ProductCarousel from "../components/ProductCarousel";
 import Product from "../components/Product";

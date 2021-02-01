@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const sizeSchema = mongoose.Schema({
   name: { type: String, required: true },
-  price: { type: Number, required: true },
+  price: { type: String, required: true },
 });
 
 const productSchema = mongoose.Schema(

@@ -9,12 +9,12 @@ import {
   updateProduct,
 } from "../controllers/productControllers.js";
 
-router.route("/:category").get(getProductByCategory);
-router.route("/").get(getProducts).post(createProduct);
 router
   .route("/:id")
   .get(getProductById)
   .put(updateProduct)
   .delete(deleteProduct);
+router.route("/:category").get(getProductByCategory);
+router.route("/").get(getProducts).post(createProduct);
 
 export default router;

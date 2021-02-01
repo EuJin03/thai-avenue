@@ -3,6 +3,14 @@ import { Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 const CategoryList = () => {
+  // const productList = useSelector(state => state.productList);
+  // const { products } = productList;
+
+  // const newArr = [];
+  // products.forEach(product => newArr.push(product.category));
+  // const category = [...new Set(newArr)];
+  // console.log(category);
+
   return (
     <Nav
       className="justify-content-center my-5"

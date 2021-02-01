@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { ResponsiveEmbed, Row, Col, Form, Button } from "react-bootstrap";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
 import Icofont from "react-icofont";
 
 const AboutScreen = () => {

@@ -7,3 +7,6 @@ Content-Type: application/json
 ["body" {
   "id": "600c40337c004d4c8456319f"
 }]
+
+### 
+GET http://localhost:5000/api/products/600c08762f732249ec07b0a8

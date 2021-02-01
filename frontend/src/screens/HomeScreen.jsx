@@ -1,22 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "../actions/productActions";
-import { Row, Col, Image, Button, Container } from "react-bootstrap";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import Product from "../components/Product";
+import { Row, Col, Image, Button } from "react-bootstrap";
 
 const HomeScreen = () => {
-  const dispatch = useDispatch();
-
-  const productList = useSelector(state => state.productList);
-  const { loading, error, products } = productList;
-
-  useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
-
   return (
     <>
       <Image
@@ -50,12 +36,6 @@ const HomeScreen = () => {
           </div>
         </Col>
       </Row>
-
-      <Container className="mt-5">
-        <h1 className="chef-recommended">Chef Recommended</h1>
-      </Container>
-      {loading && <Loader />}
-      {error && <Message variant="danger">{error}</Message>}
     </>
   );
 };
