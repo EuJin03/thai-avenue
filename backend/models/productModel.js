@@ -24,6 +24,10 @@ const productSchema = mongoose.Schema(
       required: true,
     },
     size: [sizeSchema],
+    inStock: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,
