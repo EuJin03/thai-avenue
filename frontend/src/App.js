@@ -47,7 +47,7 @@ function App() {
           <Route path="/cart/:id?" component={CartScreen} />
 
           {/* order */}
-          <Route path="/order/:id?" component={OrderScreen} />
+          <Route path="/order" component={OrderScreen} />
         </Container>
       </main>
       <Footer />

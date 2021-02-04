@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
-import OrderModal from "./OrderModal";
 
-const OrderList = ({ products }) => {
-  const [modalShow, setModalShow] = useState(false);
+const OrderList = ({ products, onClick }) => {
+  const history = useHistory();
 
-  const addToCartHandler = () => {
-    setModalShow(true);
+  const addToCartHandler = id => {
+    history.push(`/order?id=${id}`);
+    onClick();
   };
 
   return (
@@ -48,21 +48,14 @@ const OrderList = ({ products }) => {
 
               <td width="50px">
                 <Button
-                  size="md"
+                  type="button"
                   variant="warning"
                   block
                   className="my-auto"
-                  disabled={!product.inStock}
                   onClick={() => addToCartHandler(product._id)}
                 >
                   <i className="fas fa-plus"></i>
                 </Button>
-
-                <OrderModal
-                  show={modalShow}
-                  product={product}
-                  onHide={() => setModalShow(false)}
-                />
               </td>
             </tr>
           ))}

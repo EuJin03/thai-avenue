@@ -8,6 +8,7 @@ const Trolley = ({ qty, price }) => {
       size="md"
       className="d-flex justify-content-around my-4"
       style={{ width: "350px" }}
+      
     >
       <div>{qty}</div>
       <div>

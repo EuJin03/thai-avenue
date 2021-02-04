@@ -27,8 +27,21 @@ const OrderModal = props => {
     hide();
   };
 
+  useEffect(() => {
+    const comparePrice = product.size;
+
+    comparePrice[0].name === size
+      ? setPrice(comparePrice[0].price)
+      : comparePrice.length > 1 && setPrice(comparePrice[1].price);
+  });
+
   return (
-    <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
       <Modal.Header closeButton>
         <Image
           src={product.image}
@@ -59,20 +72,23 @@ const OrderModal = props => {
                 </Col>
               </Row>
             </ListGroup.Item>
+            {product.size[0].name === "standard" ? (
+              <ListGroup.Item>
+                <Row className="d-flex align-items-center justify-content-center">
+                  <Col>Price:</Col>
+                  <Col>{price}</Col>
+                </Row>
+              </ListGroup.Item>
+            ) : (
+              <ListGroup.Item>
+                <Row className="d-flex align-items-center justify-content-center">
+                  <Col>Price:</Col>
+                  <Col>{product.size[1].price}</Col>
+                </Row>
+              </ListGroup.Item>
+            )}
 
-            <ListGroup.Item>
-              <Row className="d-flex align-items-center justify-content-center">
-                <Col>Price:</Col>
-                <Col>
-                  <Form.Control
-                    value={price}
-                    onChange={e => setPrice(e.target.value)}
-                  >
-                    {}
-                  </Form.Control>
-                </Col>
-              </Row>
-            </ListGroup.Item>
+            {/* footer */}
           </ListGroup>
         </Card>
       </Modal.Body>

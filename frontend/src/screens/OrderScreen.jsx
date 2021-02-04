@@ -1,26 +1,47 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import Trolley from "../components/Trolley";
 import OrderList from "../components/OrderList";
-import { listProducts } from "../actions/productActions";
+import { listProductDetails, listProducts } from "../actions/productActions";
+import OrderModal from "../components/OrderModal";
 
-const OrderScreen = () => {
+const useQuery = () => new URLSearchParams(useLocation().search);
+
+const OrderScreen = ({ location }) => {
+  const base = location.search;
+
+  const query = useQuery();
+
   const arrange = [];
+
+  const [modalShow, setModalShow] = useState(false);
 
   const dispatch = useDispatch();
 
   const productList = useSelector(state => state.productList);
   const { products } = productList;
 
-  products.forEach(product => arrange.push(product.category));
-  const category = [...new Set(arrange)];
+  const productDetails = useSelector(state => state.productDetails);
+  const { product } = productDetails;
 
   const cart = useSelector(state => state.cart);
   const { cartItems } = cart;
 
+  products.forEach(product => arrange.push(product.category));
+  const category = [...new Set(arrange)];
+
   useEffect(() => {
     dispatch(listProducts());
-  }, [dispatch]);
+
+    if (base !== "") {
+      dispatch(listProductDetails(query.get("id")));
+    }
+  }, [dispatch, base]);
+
+  const selectModal = () => {
+    setModalShow(true);
+  };
 
   return (
     <>
@@ -33,6 +54,7 @@ const OrderScreen = () => {
               products={products.filter(product =>
                 product.category.includes(food)
               )}
+              onClick={selectModal}
             />
           </>
         ))}
@@ -42,6 +64,14 @@ const OrderScreen = () => {
         className="d-flex justify-content-center fixed-bottom"
       >
         <Trolley price="0" qty="0" />
+
+        {product && product.inStock && (
+          <OrderModal
+            show={modalShow}
+            product={product}
+            onHide={() => setModalShow(false)}
+          />
+        )}
       </div>
     </>
   );
