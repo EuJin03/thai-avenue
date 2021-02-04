@@ -23,9 +23,13 @@ const OrderModal = props => {
   const [remark, setRemark] = useState("");
 
   const submitHandler = hide => {
-    dispatch(addToCart(props.product._id, qty, remark, size));
+    dispatch(addToCart(product._id, qty, remark, size));
     hide();
+    setRemark("");
+    setQty(1);
   };
+
+  console.log(size, price, qty, remark);
 
   useEffect(() => {
     const comparePrice = product.size;
@@ -33,7 +37,7 @@ const OrderModal = props => {
     comparePrice[0].name === size
       ? setPrice(comparePrice[0].price)
       : comparePrice.length > 1 && setPrice(comparePrice[1].price);
-  });
+  }, [product.size, size]);
 
   return (
     <Modal
@@ -76,17 +80,55 @@ const OrderModal = props => {
               <ListGroup.Item>
                 <Row className="d-flex align-items-center justify-content-center">
                   <Col>Price:</Col>
-                  <Col>{price}</Col>
+                  <Col xs={{ span: 5, offset: 1 }} md={{ span: 5, offset: 1 }}>
+                    RM {parseFloat(price).toFixed(2)}
+                  </Col>
                 </Row>
               </ListGroup.Item>
             ) : (
               <ListGroup.Item>
                 <Row className="d-flex align-items-center justify-content-center">
                   <Col>Price:</Col>
-                  <Col>{product.size[1].price}</Col>
+                  <Col xs={{ span: 5, offset: 1 }} md={{ span: 5, offset: 1 }}>
+                    RM {parseFloat(price).toFixed(2)}
+                  </Col>
                 </Row>
               </ListGroup.Item>
             )}
+
+            <ListGroup.Item>
+              <Row className="d-flex align-items-center justify-content-center">
+                <Col>Quantity:</Col>
+                <Col>
+                  <Form.Control
+                    as="select"
+                    value={qty}
+                    onChange={e => setQty(e.target.value)}
+                  >
+                    {Array.from(String(123456789), Number).map((num, index) => (
+                      <option key={index} value={num}>
+                        {num}
+                      </option>
+                    ))}
+                  </Form.Control>
+                </Col>
+              </Row>
+            </ListGroup.Item>
+
+            <ListGroup.Item>
+              <Row className="d-flex align-items-center justify-content-center">
+                <Col> Remark:</Col>
+                <Col>
+                  <Form.Control
+                    as="textarea"
+                    row="2"
+                    value={remark}
+                    onChange={e => setRemark(e.target.value)}
+                    placeholder="Write a remark"
+                  ></Form.Control>
+                </Col>
+              </Row>
+            </ListGroup.Item>
 
             {/* footer */}
           </ListGroup>
