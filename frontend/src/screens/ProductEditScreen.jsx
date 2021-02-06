@@ -77,6 +77,7 @@ const ProductEditScreen = ({ history, match }) => {
           });
       }
     }
+    // eslint-disable-next-line
   }, [dispatch, history, product, productId, successUpdate]);
 
   const submitHandler = e => {
@@ -194,8 +195,10 @@ const ProductEditScreen = ({ history, match }) => {
                 required
                 onChange={e => setCategory(e.target.value)}
               >
-                {catList.map(cat => (
-                  <option value={cat.toLowerCase()}>{cat}</option>
+                {catList.map((cat, index) => (
+                  <option key={index} value={cat.toLowerCase()}>
+                    {cat}
+                  </option>
                 ))}
               </Form.Control>
             </Form.Group>

@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Order from "../models/orderModel.js";
-import { endOfDay, startOfDay } from "date-fns";
+import { endOfToday, startOfToday } from "date-fns";
 
 // desc Create new Order
 // @route POST /api/orders
@@ -44,12 +44,16 @@ const getAllOrders = asyncHandler(async (req, res) => {
 // @route GET /api/orders/today
 // @access Private route
 const getTodayOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find({
-    createdAt: {
-      $gte: startOfDay(new Date()),
-      $lte: endOfDay(new Date()),
+  const orders = await Order.aggregate([
+    {
+      $match: {
+        createdAt: {
+          $gte: startOfToday(),
+          $lt: endOfToday(),
+        },
+      },
     },
-  });
+  ]);
 
   if (orders) {
     res.json(orders);

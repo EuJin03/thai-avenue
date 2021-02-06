@@ -37,6 +37,7 @@ const OrderScreen = ({ location }) => {
     if (base !== "") {
       dispatch(listProductDetails(query.get("id")));
     }
+    // eslint-disable-next-line
   }, [dispatch, base]);
 
   const selectModal = () => {

@@ -10,6 +10,9 @@ const Header = () => {
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
+  const recentOrder = useSelector(state => state.recentOrder);
+  const { order } = recentOrder;
+
   const logoutHandler = () => {
     dispatch(logout());
   };
@@ -32,6 +35,12 @@ const Header = () => {
               <LinkContainer to="/about">
                 <Nav.Link className="mr-4 font-nav">About Us</Nav.Link>
               </LinkContainer>
+
+              {order && (
+                <LinkContainer to={`/recent/${order._id}`}>
+                  <Nav.Link className="mr-4 font-nav">Previous Order</Nav.Link>
+                </LinkContainer>
+              )}
 
               {userInfo && userInfo.isAdmin ? (
                 <>

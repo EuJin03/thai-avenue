@@ -1,13 +1,24 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
+import { ORDER_CREATE_RESET } from "../constants/orderConstants";
 
 const OrderList = ({ products, onClick }) => {
+  const dispatch = useDispatch();
   const history = useHistory();
+
+  const orderCreate = useSelector(state => state.orderCreate);
+  const { order } = orderCreate;
 
   const addToCartHandler = id => {
     history.push(`/order?id=${id}`);
     onClick();
+
+    if (order) {
+      // dispatch order create reset
+      dispatch({ type: ORDER_CREATE_RESET });
+    }
   };
 
   return (

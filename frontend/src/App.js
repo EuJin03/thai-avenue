@@ -15,6 +15,7 @@ import ProductListScreen from "./screens/ProductListScreen";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import CartScreen from "./screens/CartScreen";
 import RecentOrderScreen from "./screens/RecentOrderScreen";
+import OrderAdminScreen from "./screens/OrderAdminScreen";
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
           {/* order */}
           <Route path="/order" component={OrderScreen} />
           <Route path="/recent/:id" component={RecentOrderScreen} />
+          <Route path="/admin/orderlist" component={OrderAdminScreen} />
         </Container>
       </main>
       <Footer />

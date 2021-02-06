@@ -14,7 +14,7 @@ import {
   ORDER_SERVED_FAIL,
 } from "../constants/orderConstants";
 
-export const createOrder = order => async (dispatch, getState) => {
+export const createOrder = order => async dispatch => {
   try {
     dispatch({
       type: ORDER_CREATE_REQUEST,
@@ -58,6 +58,8 @@ export const getOrderDetails = id => async (dispatch, getState) => {
           : error.message,
     });
   }
+
+  localStorage.setItem("recentOrder", JSON.stringify(getState().orderDetails));
 };
 
 export const listAdminOrders = () => async (dispatch, getState) => {
@@ -94,7 +96,7 @@ export const listAdminOrders = () => async (dispatch, getState) => {
   }
 };
 
-export const servedOrder = order => async (dispatch, getState) => {
+export const servedOrder = id => async (dispatch, getState) => {
   try {
     dispatch({
       type: ORDER_SERVED_REQUEST,
@@ -110,11 +112,7 @@ export const servedOrder = order => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.put(
-      `/api/orders/${order._id}/serve`,
-      {},
-      config
-    );
+    const { data } = await axios.put(`/api/orders/${id}/served`, {}, config);
 
     dispatch({
       type: ORDER_SERVED_SUCCESS,

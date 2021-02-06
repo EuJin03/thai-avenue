@@ -21,6 +21,7 @@ const CartScreen = ({ history }) => {
     if (success) {
       history.push(`/recent/${order._id}`);
     }
+    // eslint-disable-next-line
   }, [history, success]);
 
   const removeFromCartHandler = id => {
@@ -60,13 +61,13 @@ const CartScreen = ({ history }) => {
           ) : (
             <ListGroup variant="flush">
               {cartItems.map(item => (
-                <ListGroup.Item key={item.product}>
+                <ListGroup.Item key={item._id}>
                   <Row className="d-flex justify-content-center align-items-center">
                     <Col xs={4} md={3}>
                       {item.name}
                     </Col>
                     <Col xs={4} md={2}>
-                      RM {item.price * item.qty}
+                      RM {(item.price * item.qty).toFixed(2)}
                     </Col>
                     <Col xs={4} md={2}>
                       Qty: {item.qty}
@@ -114,7 +115,7 @@ const CartScreen = ({ history }) => {
                     onChange={e => setTable(e.target.value)}
                   >
                     {Array.from(Array(20).keys()).map((num, index) => (
-                      <option key={index} value={num}>
+                      <option key={index * 5} value={num}>
                         {num}
                       </option>
                     ))}
