@@ -48,7 +48,7 @@ const OrderScreen = ({ location }) => {
       <div style={{ marginTop: "70px" }}>
         {category.map(food => (
           <>
-            <h1>{food}</h1>
+            <h1 key={food._id}>{food}</h1>
 
             <OrderList
               products={products.filter(product =>
@@ -63,7 +63,12 @@ const OrderScreen = ({ location }) => {
         style={{ width: "100%", backgroundColor: "#f1f1f1" }}
         className="d-flex justify-content-center fixed-bottom"
       >
-        <Trolley price="0" qty="0" />
+        <Trolley
+          price={cartItems
+            .reduce((acc, item) => acc + item.qty * item.price, 0)
+            .toFixed(2)}
+          qty={cartItems.reduce((acc, item) => acc + Number(item.qty), 0)}
+        />
 
         {product && product.inStock && (
           <OrderModal

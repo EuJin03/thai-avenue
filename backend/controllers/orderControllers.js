@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Order from "../models/orderModel.js";
+import { endOfDay, startOfDay } from "date-fns";
 
 // desc Create new Order
 // @route POST /api/orders
@@ -30,6 +31,25 @@ const addOrderItems = asyncHandler(async (req, res) => {
 // @access Private route
 const getAllOrders = asyncHandler(async (req, res) => {
   const orders = await Order.find({}).populate();
+
+  if (orders) {
+    res.json(orders);
+  } else {
+    res.status(404);
+    throw new Error("Orders not found");
+  }
+});
+
+// desc Get all today's orders
+// @route GET /api/orders/today
+// @access Private route
+const getTodayOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({
+    createdAt: {
+      $gte: startOfDay(new Date()),
+      $lte: endOfDay(new Date()),
+    },
+  });
 
   if (orders) {
     res.json(orders);
@@ -72,4 +92,26 @@ const updateOrderToServed = asyncHandler(async (req, res) => {
   }
 });
 
-export { addOrderItems, getAllOrders, getOrderById, updateOrderToServed };
+// desc delete order
+// @route DELETE /api/orders
+// @access private admin
+const deleteOrders = asyncHandler(async (req, res) => {
+  const order = await Order.find({});
+
+  if (order) {
+    await Order.deleteMany();
+    res.json("Order removed");
+  } else {
+    res.status(404);
+    throw new Error("Order not found");
+  }
+});
+
+export {
+  addOrderItems,
+  getAllOrders,
+  getTodayOrders,
+  getOrderById,
+  updateOrderToServed,
+  deleteOrders,
+};

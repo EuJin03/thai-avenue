@@ -19,6 +19,12 @@ import {
   userUpdateProfileReducer,
   userUpdateReducer,
 } from "./reducers/userReducer";
+import {
+  orderCreateReducer,
+  orderDetailsReducer,
+  orderListAdminReducer,
+  orderServedReducer,
+} from "./reducers/orderReducer";
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -35,6 +41,10 @@ const reducer = combineReducers({
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
   cart: cartReducer,
+  orderCreate: orderCreateReducer,
+  orderDetails: orderDetailsReducer,
+  orderListAdmin: orderListAdminReducer,
+  orderServed: orderServedReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")
@@ -45,11 +55,16 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
 
+const recentOrderFromStorage = localStorage.getItem("recentOrder")
+  ? JSON.parse(localStorage.getItem("recentOrder"))
+  : null;
+
 const initialState = {
   cart: {
     cartItems: cartItemsFromStorage,
   },
   userLogin: { userInfo: userInfoFromStorage },
+  recentOrder: recentOrderFromStorage,
 };
 
 const middleware = [thunk];

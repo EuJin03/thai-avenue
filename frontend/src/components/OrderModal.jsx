@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import {
   Modal,
   Button,
@@ -13,11 +14,12 @@ import {
 import { addToCart } from "../actions/cartActions";
 
 const OrderModal = props => {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const { product } = props;
 
-  const [size, setSize] = useState("");
+  const [size, setSize] = useState("standard");
   const [price, setPrice] = useState(0);
   const [qty, setQty] = useState(1);
   const [remark, setRemark] = useState("");
@@ -27,9 +29,8 @@ const OrderModal = props => {
     hide();
     setRemark("");
     setQty(1);
+    history.push(`/order`);
   };
-
-  console.log(size, price, qty, remark);
 
   useEffect(() => {
     const comparePrice = product.size;
@@ -105,9 +106,9 @@ const OrderModal = props => {
                     value={qty}
                     onChange={e => setQty(e.target.value)}
                   >
-                    {Array.from(String(123456789), Number).map((num, index) => (
-                      <option key={index} value={num}>
-                        {num}
+                    {Array.from(Array(10).keys()).map((num, index) => (
+                      <option key={index} value={num + 1}>
+                        {num + 1}
                       </option>
                     ))}
                   </Form.Control>

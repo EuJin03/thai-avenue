@@ -14,6 +14,7 @@ import UserEditScreen from "./screens/UserEditScreen";
 import ProductListScreen from "./screens/ProductListScreen";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import CartScreen from "./screens/CartScreen";
+import RecentOrderScreen from "./screens/RecentOrderScreen";
 
 function App() {
   return (
@@ -44,10 +45,11 @@ function App() {
           ></Route>
 
           {/* cart */}
-          <Route path="/cart/:id?" component={CartScreen} />
+          <Route path="/cart" component={CartScreen} />
 
           {/* order */}
           <Route path="/order" component={OrderScreen} />
+          <Route path="/recent/:id" component={RecentOrderScreen} />
         </Container>
       </main>
       <Footer />
