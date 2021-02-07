@@ -1,8 +1,10 @@
 import { config } from "dotenv";
 import path from "path";
+import cors from "cors";
 import express from "express";
 import colors from "colors";
 import morgan from "morgan";
+import cloudinary from "cloudinary";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import connectDB from "./config/db.js";
 
@@ -20,6 +22,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+app.use(cors());
 app.use(express.json());
 
 app.use("/api/products", productRoutes);

@@ -122,7 +122,7 @@ const ProductEditScreen = ({ history, match }) => {
       };
       const { data } = await axios.post("/api/uploads", formData, config);
 
-      setImage(data);
+      setImage(data.url);
       setUploading(false);
     } catch (error) {
       console.error(error);

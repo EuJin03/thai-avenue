@@ -1,18 +1,17 @@
 import path from "path";
 import express from "express";
 import multer from "multer";
+import cloudinary from "cloudinary";
+import { config } from "dotenv";
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename(req, file, cb) {
-    cb(
-      null,
-      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
-    );
-  },
+config();
+
+const storage = multer.diskStorage({});
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
 });
 
 function checkFileType(file, cb) {
@@ -35,8 +34,21 @@ const upload = multer({
 });
 
 // connect to /api/uploads
-router.post("/", upload.single("image"), (req, res) => {
-  res.send(`/${req.file.path}`);
+router.post("/", upload.single("image"), async (req, res) => {
+  try {
+    const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+      public_id: "eujin03/image-uploads/" + (Date.now() % 5),
+      overwrite: true,
+      resource_type: "image",
+    });
+    res.json({
+      success: true,
+      url: uploadResult.url,
+    });
+  } catch (err) {
+    res.json({ success: false });
+    console.log(err);
+  }
 });
 
 export default router;
