@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
@@ -36,8 +36,8 @@ const Header = () => {
                 <Nav.Link className="mr-4 font-nav">About Us</Nav.Link>
               </LinkContainer>
 
-              {order && (
-                <LinkContainer to={`/recent/${order._id}`}>
+              {order && order._id && (
+                <LinkContainer to={`/recent/${recentOrder.order._id}`}>
                   <Nav.Link className="mr-4 font-nav">Previous Order</Nav.Link>
                 </LinkContainer>
               )}

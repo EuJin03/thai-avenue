@@ -59,7 +59,7 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
 
 const recentOrderFromStorage = localStorage.getItem("recentOrder")
   ? JSON.parse(localStorage.getItem("recentOrder"))
-  : null;
+  : {};
 
 const initialState = {
   cart: {

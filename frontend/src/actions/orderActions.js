@@ -79,7 +79,7 @@ export const listAdminOrders = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/orders`, config);
+    const { data } = await axios.get(`/api/orders/today`, config);
 
     dispatch({
       type: ORDER_LIST_ADMIN_SUCCESS,

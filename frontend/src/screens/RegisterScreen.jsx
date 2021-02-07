@@ -53,7 +53,7 @@ const RegisterScreen = ({ location, history }) => {
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="name">
-            <Form.Label className="my-2">Userame</Form.Label>
+            <Form.Label className="my-2">Username</Form.Label>
             <Form.Control
               type="name"
               placeholder="Enter username"
